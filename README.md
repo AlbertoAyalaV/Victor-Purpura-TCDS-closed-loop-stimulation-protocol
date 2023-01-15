@@ -1,4 +1,4 @@
-### VictorPurpura with Custom GUI
+### Victor Purpura and TCDS closed loop stimulation protocol
 
 **Requirements:** None  
 **Limitations:** None  
@@ -13,7 +13,7 @@ Implementation of a real-time closed-loop stimulation protocol to study activity
 
 #### Output
 1. output(0) - Now : Task startup time
-2. output(1) - output : Ttimulus enable flag
+2. output(1) - output : Stimulus enable flag
 3. output(2) - bit detected : Bit detected within current time window
 
 #### Parameters
@@ -28,7 +28,7 @@ Implementation of a real-time closed-loop stimulation protocol to study activity
 
 #### References
 
-If you use this code, plese reference:
+If you use this code, please reference:
 
 1. A. Lareo, C. G. Forlim, R. D. Pinto, P. Varona, and F. B. Rodriguez. Temporal code-driven stimulation: definition and application to electric fish signaling. Frontiers in neuroinformatics, 10:41, 2016.
 

@@ -39,7 +39,7 @@ createRTXIPlugin(void)
 static DefaultGUIModel::variable_t vars[] = {
   { "IV", "Weakly electric fish voltage (V)", DefaultGUIModel::INPUT, },
   { "Now", "Task startup time", DefaultGUIModel::OUTPUT, },
-  { "output", "Ttimulus enable flag", DefaultGUIModel::OUTPUT, },
+  { "output", "Stimulus enable flag", DefaultGUIModel::OUTPUT, },
   { "bit detected", "Bit detected within current time window", DefaultGUIModel::OUTPUT, },
  
   { "Bin Time (ns)", "Time window",
@@ -64,7 +64,7 @@ static DefaultGUIModel::variable_t vars[] = {
 static size_t num_vars = sizeof(vars) / sizeof(DefaultGUIModel::variable_t);
 
 VictorPurpura::VictorPurpura(void)
-  : DefaultGUIModel("VictorPurpura with Custom GUI", ::vars, ::num_vars)
+  : DefaultGUIModel("Victor Purpura and TCDS closed loop stimulation protocol", ::vars, ::num_vars)
 {
   setWhatsThis("Implementation of a real-time closed-loop stimulation protocol to study activity codes with flexibility using the Real-Time eXperiment Interface (RTXI). This new and easier-to-use implementation is based on the TCDS protocol and the Victor-Purpura distance.");
   DefaultGUIModel::createGUI(vars,
