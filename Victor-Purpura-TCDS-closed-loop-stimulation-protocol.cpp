@@ -37,34 +37,27 @@ createRTXIPlugin(void)
 }
 
 static DefaultGUIModel::variable_t vars[] = {
-  { "IV", "Fish Voltage(V)", DefaultGUIModel::INPUT, },
-  { "Now", "detecting time", DefaultGUIModel::OUTPUT, },
-  { "output", "stimulus generator input", DefaultGUIModel::OUTPUT, },
-  { "bit detected", "bit detected in window time", DefaultGUIModel::OUTPUT, },
-  { "bin", "bin", DefaultGUIModel::OUTPUT, },
-  { "res", "bin", DefaultGUIModel::OUTPUT, },
-  { "wtd", "bin", DefaultGUIModel::OUTPUT, },
-  { "wa", "bin", DefaultGUIModel::OUTPUT, },
-  { "windowsend", "bin", DefaultGUIModel::OUTPUT, },
-  { "lat", "lat", DefaultGUIModel::OUTPUT, },
-  { "sp", "sp", DefaultGUIModel::OUTPUT, },
-
-
-  { "Bin Time (ns)", "window time",
+  { "IV", "Weakly electric fish voltage (V)", DefaultGUIModel::INPUT, },
+  { "Now", "Task startup time", DefaultGUIModel::OUTPUT, },
+  { "output", "Ttimulus enable flag", DefaultGUIModel::OUTPUT, },
+  { "bit detected", "Bit detected within current time window", DefaultGUIModel::OUTPUT, },
+ 
+  { "Bin Time (ns)", "Time window",
   DefaultGUIModel::PARAMETER | DefaultGUIModel::DOUBLE, },
 
-  { "Threshold (V)", "minimum voltage to detect a spike",
+  { "Threshold (V)", "Minimum voltage to detect a spike",
   DefaultGUIModel::PARAMETER | DefaultGUIModel::DOUBLE, },
 
-  { "Word length", "number of bits of the word",
+  { "Word length", "Number of bits of the word",
   DefaultGUIModel::PARAMETER | DefaultGUIModel::INTEGER, },
 
-  { "q", "similarity constant",
+  { "q", "Relative sensitivity of the metric to the precise timing of the spikes",
   DefaultGUIModel::PARAMETER | DefaultGUIModel::INTEGER, },
-  { "Limit", "distance limit",
+
+  { "Limit", "Victor Purpura distance threshold",
   DefaultGUIModel::PARAMETER | DefaultGUIModel::DOUBLE, },
 
-  { "Word", "word to detect",
+  { "Word", "Word to detect",
   DefaultGUIModel::PARAMETER, },
 };
 
@@ -73,7 +66,7 @@ static size_t num_vars = sizeof(vars) / sizeof(DefaultGUIModel::variable_t);
 VictorPurpura::VictorPurpura(void)
   : DefaultGUIModel("VictorPurpura with Custom GUI", ::vars, ::num_vars)
 {
-  setWhatsThis("<p><b>VictorPurpura:</b><br>QWhatsThis description.</p>");
+  setWhatsThis("Implementation of a real-time closed-loop stimulation protocol to study activity codes with flexibility using the Real-Time eXperiment Interface (RTXI). This new and easier-to-use implementation is based on the TCDS protocol and the Victor-Purpura distance.");
   DefaultGUIModel::createGUI(vars,
                              num_vars); // this is required to create the GUI
   customizeGUI();
@@ -105,8 +98,6 @@ VictorPurpura::execute(void)
 
   double voltage = input(0);
   output(0) = now;
-  output(3) = bin;
-  output(5) = Bits2Int(word, length);
 
   if(numCalls==NEW_TIME_WINDOW){
     lastTime = now;
@@ -115,7 +106,6 @@ VictorPurpura::execute(void)
 
   if(detect_spike(voltage)&& out!=BIT_DETECTED_OUT){
     numsp++;
-    output(9) = 0;
 
     
     out = BIT_DETECTED_OUT;
@@ -132,11 +122,9 @@ VictorPurpura::execute(void)
     }
     
   }else{
-    output(9) = 10;
   }
 
   if(bin<(now-lastTime)){
-    output(7) = 10;
     if(out == BIT_NOT_DETECTED_OUT){
       bit_d = out;
       wbBitInsert(wb,out); //store 0 bit array
@@ -161,12 +149,9 @@ VictorPurpura::execute(void)
     }
     
   }else{
-    output(7) = -1;
   }
   output(1) = salida;
   output(2) = bit_d;
-  output(4) = r;
-  output(6) = check;
 
   return;
 }

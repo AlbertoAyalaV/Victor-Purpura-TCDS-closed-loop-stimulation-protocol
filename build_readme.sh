@@ -35,7 +35,7 @@ CPPFILE="${PWD##*/}.cpp"
 HEADER="${PWD##*/}.h"
 SCREENSHOT="${PWD##*/}.png"
 
-README=NEW_README.md
+README=README.md
 
 REQUIREMENTS=None
 LIMITATIONS=None
@@ -94,7 +94,7 @@ echo ""                                           >> "${README}"
 echo "**Requirements:** ${REQUIREMENTS}  "        >> "${README}"
 echo "**Limitations:** ${LIMITATIONS}  "          >> "${README}"
 echo ""                                           >> "${README}"
-echo "![${PLUGIN_NAME} GUI](${SCREENSHOT})"       >> "${README}"
+#echo "![${PLUGIN_NAME} GUI](${SCREENSHOT})"       >> "${README}"
 echo ""                                           >> "${README}"
 echo "<!--start-->"                               >> "${README}"
 echo "${DESCRIPTION}"                             >> "${README}"
