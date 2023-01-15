@@ -1,9 +1,9 @@
-PLUGIN_NAME = plugin_template
+PLUGIN_NAME = Victor_Purpura_TCDS_closed_loop_stimulation_protocol
 
-HEADERS = plugin-template.h
+HEADERS = Victor-Purpura-TCDS-closed-loop-stimulation-protocol.h
 
-SOURCES = plugin-template.cpp\
-          moc_plugin-template.cpp\
+SOURCES = Victor-Purpura-TCDS-closed-loop-stimulation-protocol.cpp\
+          moc_Victor-Purpura-TCDS-closed-loop-stimulation-protocol.cpp\
 
 LIBS = 
 
